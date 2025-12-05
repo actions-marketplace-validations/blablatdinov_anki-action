@@ -1,7 +1,7 @@
 #!/bin/bash
 # MIT License
 #
-# Copyright (c) 2023 Almaz Ilaletdinov <a.Ilaletdinov@yandex.ru>
+# Copyright (c) 2023-2025 Almaz Ilaletdinov <a.ilaletdinov@yandex.ru>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,14 +24,13 @@
 set -e 
 set -x
 
-input_path="${1:-anki-cards}"
 cd ${GITHUB_WORKSPACE-/w}
-npm i
-cd $input_path
-
 ls -la
 
-for filename in $(ls .)
-do
-  ../node_modules/mdanki/src/index.js $filename cards.apkg
-done
+cd $INPUT_PATH
+ls -la
+
+/home/node_modules/mdanki/src/index.js . cards.apkg
+cp /github/workspace/anki-cards/cards.apkg /github/workspace
+path_to_output='/github/workspace/cards.apkg'
+echo "path_to_output=$path_to_output" >> $GITHUB_OUTPUT
